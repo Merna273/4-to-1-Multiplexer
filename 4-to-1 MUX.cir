@@ -1,0 +1,85 @@
+*
+*models
+.include "/Users/mernaabdelbadie/Desktop/university/Fall 2022/Microelectronics/Micro Project /MOSFET_models_0p5_0p18.inc"
+*data statements
+
+*inputs
+Vdd N001 0 1.8
+
+*load lines
+Vs0 in0 0 pulse(0 1.8 0 1p 1p 80n 160n)
+Vs1 in1 0 pulse(1.8 0 0 1p 1p 160n 320n)
+
+*test case 1
+VI0 in2 0 pulse(0 1.8 0 1p 1p 5n 10n)
+VI1 in3 0 pulse(0 1.8 0 1p 1p 10n 20n)
+VI2 in4 0 pulse(0 1.8 0 1p 1p 20n 40n)
+VI3 in5 0 pulse(0 1.8 0 1p 1p 40n 80n)
+
+*inverters
+
+*s0
+M_NInv1 out0 in0 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv1 out0 in0 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*s1
+M_NInv2 out1 in1 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv2 out1 in1 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*I0
+M_NInv3 out2 in2 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv3 out2 in2 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*I1
+M_NInv4 out3 in3 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv4 out3 in3 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*I2
+M_NInv5 out4 in4 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv5 out4 in4 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*I3
+M_NInv6 out5 in5 0 0 NMOS0P18 w = 0.9u l = 0.18u
+M_PInv6 out5 in5 N001 N001 PMOS0P18 w = 1.8u l = 0.18u
+
+*PUN
+M_P1 1 out1 N001 N001 PMOS0P18 w = 5.4u l = 0.18u
+M_P2 2 out0 1 1 PMOS0P18 w = 5.4u l = 0.18u
+M_P3 out out5 2 2 PMOS0P18 w = 5.4u l = 0.18u
+M_P4 3 out1 N001 N001 PMOS0P18 w = 5.4u l = 0.18u
+M_P5 4 in0 3 3 PMOS0P18 w = 5.4u l = 0.18u
+M_P6 out out4 4 4 PMOS0P18 w = 5.4u l = 0.18u
+M_P7 5 in1 N001 N001 PMOS0P18 w = 5.4u l = 0.18u
+M_P8 6 out0 5 5 PMOS0P18 w = 5.4u l = 0.18u
+M_P9 out out3 6 6 PMOS0P18 w = 5.4u l = 0.18u
+M_P10 7 in1 N001 N001 PMOS0P18 w = 5.4u l = 0.18u
+M_P11 8 in0 7 7 PMOS0P18 w = 5.4u l = 0.18u
+M_P12 out out2 8 8 PMOS0P18 w = 5.4u l = 0.18u
+
+*PDN
+M_N1 out out1 9 9 NMOS0P18 w = 3.6u l = 0.18u
+M_N2 out out0 9 9 NMOS0P18 w = 3.6u l = 0.18u
+M_N3 out out5 9 9 NMOS0P18 w = 3.6u l = 0.18u
+M_N4 9 out1 10 10 NMOS0P18 w = 3.6u l = 0.18u
+M_N5 9 in0 10 10 NMOS0P18 w = 3.6u l = 0.18u
+M_N6 9 out4 10 10 NMOS0P18 w = 3.6u l = 0.18u
+M_N7 10 in1 11 11 NMOS0P18 w = 3.6u l = 0.18u
+M_N8 10 out0 11 11 NMOS0P18 w = 3.6u l = 0.18u
+M_N9 10 out3 11 11 NMOS0P18 w = 3.6u l = 0.18u
+M_N10 11 in1 0 0 NMOS0P18 w = 3.6u l = 0.18u
+M_N11 11 in0 0 0 NMOS0P18 w = 3.6u l = 0.18u
+M_N12 11 out2 0 0 NMOS0P18 w = 3.6u l = 0.18u
+
+*capacitor
+C1 out 0 0.2p
+*resistor (for propagation delay and power dissipation)
+R1 out 0 1k
+
+*control statements
+.tran 0.2n 320n
+.meas tran current avg abs(I(Vdd))
+.meas tran voltage avg V(N001)
+.meas tran power avg V(N001)*abs(I(Vdd))
+.meas tran power_dis avg V(out)*(I(R1))
+.backanno
+.end

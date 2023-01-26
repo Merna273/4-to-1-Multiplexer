@@ -1,0 +1,55 @@
+*
+.include "/Users/mernaabdelbadie/Desktop/university/Fall 2022/Microelectronics/Project /MOSFET_models_0p5_0p18.inc"
+*data statements
+
+*for 0.5 technlogy:
+
+*matching design
+
+*Vdd N001 0 3.3
+*M1 out in 0 0 NMOS0P5 w = 1.25u l = 0.5u
+*M2 out in N001 N001 PMOS0P5 w = 5u l = 0.5u
+*C1 out 0 0.5p
+*Vin in 0 pulse(0 3.3 0 1p 1p 5n 10n)
+*.tran 0.2n 10n
+*Vin in 0 dc 3.3
+*.DC Vin 0 3.3 0.01
+
+*minimum area
+
+*Vdd N001 0 3.3
+*M1 out in 0 0 NMOS0P5 w = 0.5u l = 0.5u
+*M2 out in N001 N001 PMOS0P5 w = 0.5u l = 0.5u
+*C1 out 0 0.5p
+*Vin in 0 pulse(0 3.3 0 1p 1p 5n 10n)
+*.tran 0.2n 10n
+*Vin in 0 dc 3.3
+*.DC Vin 0 3.3 0.01
+
+*for 0.18 technology
+
+*matching design
+
+*Vdd N001 0 1.8
+*M1 out in 0 0 NMOS0P18 w = 0.9u l = 0.18u
+*M2 out in N001 N001 PMOS0P18 w = 4.14u l = 0.18u
+*C1 out 0 0.2p
+*Vin in 0 pulse(0 1.8 0 1p 1p 5n 10n)
+*.tran 0.2n 10n
+*Vin in 0 dc 1.8
+*.DC Vin 0 1.8 0.01
+
+*minimum area
+
+*Vdd N001 0 1.8
+*M1 out in 0 0 NMOS0P18 w = 0.18u l = 0.18u
+*M2 out in N001 N001 PMOS0P18 w = 0.18u l = 0.18u
+*C1 out 0 0.2p
+*Vin in 0 pulse(0 1.8 0 1p 1p 5n 10n)
+*.tran 0.2n 10n
+*Vin in 0 dc 1.8
+*.DC Vin 0 1.8 0.01
+
+.lib /Users/mernaabdelbadie/Library/Application Support/LTspice/lib/cmp/standard.mos
+.backanno
+.end
